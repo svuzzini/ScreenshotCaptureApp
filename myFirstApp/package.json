@@ -1,0 +1,85 @@
+{
+  "name": "shottr-clone",
+  "version": "1.0.0",
+  "description": "A modern screenshot application with advanced editing features",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "concurrently \"npm run start:renderer\" \"wait-on http://localhost:3000 && npm run start:electron\"",
+    "start:renderer": "cross-env BROWSER=none react-scripts start",
+    "start:electron": "cross-env NODE_ENV=development electron .",
+    "build": "npm run build:renderer && npm run build:electron",
+    "build:renderer": "react-scripts build",
+    "build:electron": "tsc -p tsconfig.electron.json",
+    "dist": "npm run build && electron-builder",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "homepage": "./",
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.14",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "electron": "^23.1.1",
+    "fabric": "^5.2.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@types/fabric": "^5.3.10",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
+    "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
+    "electron-builder": "^23.6.0",
+    "eslint": "^8.35.0",
+    "wait-on": "^7.0.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "build": {
+    "appId": "com.shottrclone.app",
+    "productName": "ShottrClone",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "build/**/*",
+      "dist/main.js",
+      "node_modules/**/*"
+    ],
+    "mac": {
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.graphics-design"
+    },
+    "win": {
+      "icon": "assets/icon.ico"
+    },
+    "linux": {
+      "icon": "assets/icon.png"
+    }
+  }
+}
