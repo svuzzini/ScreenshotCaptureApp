@@ -1,4 +1,4 @@
-# ShottrClone - Advanced Screenshot Application
+# Advanced Screenshot Application
 
 A modern, cross-platform screenshot application built with Electron and React, featuring advanced editing tools and stylish export options.
 
