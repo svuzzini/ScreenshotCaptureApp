@@ -27,6 +27,7 @@ yarn-error.log*
 # Electron
 /out/
 *.log
+electron/preload.js
 
 # OS
 Thumbs.db

@@ -37,19 +37,17 @@ code {
   background: #a1a1a1;
 }
 
-/* Dark theme scrollbar */
-@media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar-track {
-    background: #2c2c2c;
-  }
+/* Dark theme scrollbar - syncs with app theme via data attribute */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #2c2c2c;
+}
 
-  ::-webkit-scrollbar-thumb {
-    background: #555;
-  }
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #555;
+}
 
-  ::-webkit-scrollbar-thumb:hover {
-    background: #777;
-  }
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #777;
 }
 
 /* Selection styling */
@@ -167,4 +165,10 @@ input, select, textarea {
 
 .shadow-lg {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Spinner animation for loading indicator */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

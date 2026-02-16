@@ -75,9 +75,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     localStorage.setItem('theme', themeName);
   };
 
+  // Sync data-theme attribute for CSS-based theme selectors (scrollbars)
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', currentTheme.name);
+  }, [currentTheme.name]);
+
   return (
     <ThemeContext.Provider value={{ theme: currentTheme, toggleTheme, setTheme }}>
-      <div style={{ 
+      <div style={{
         backgroundColor: currentTheme.colors.background,
         color: currentTheme.colors.text,
         minHeight: '100vh'
