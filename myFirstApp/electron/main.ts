@@ -138,15 +138,24 @@ ipcMain.handle('capture-screen', async (event, options: { type: 'fullscreen' | '
 ipcMain.handle('save-image', async (event, dataUrl: string, filename?: string) => {
   try {
     const image = nativeImage.createFromDataURL(dataUrl);
-    const buffer = image.toPNG();
-    
+    const isJpeg = dataUrl.startsWith('data:image/jpeg');
+    const defaultExt = isJpeg ? 'jpg' : 'png';
+
+    const getBuffer = (filePath: string): Buffer => {
+      const ext = path.extname(filePath).toLowerCase();
+      if (ext === '.jpg' || ext === '.jpeg') {
+        return image.toJPEG(90);
+      }
+      return image.toPNG();
+    };
+
     if (filename) {
       const filePath = path.join(app.getPath('pictures'), filename);
-      fs.writeFileSync(filePath, buffer);
+      fs.writeFileSync(filePath, getBuffer(filePath));
       return filePath;
     } else {
       const result = await dialog.showSaveDialog(mainWindow!, {
-        defaultPath: path.join(app.getPath('pictures'), 'screenshot.png'),
+        defaultPath: path.join(app.getPath('pictures'), `screenshot.${defaultExt}`),
         filters: [
           { name: 'PNG Images', extensions: ['png'] },
           { name: 'JPEG Images', extensions: ['jpg', 'jpeg'] }
@@ -154,7 +163,7 @@ ipcMain.handle('save-image', async (event, dataUrl: string, filename?: string) =
       });
 
       if (!result.canceled && result.filePath) {
-        fs.writeFileSync(result.filePath, buffer);
+        fs.writeFileSync(result.filePath, getBuffer(result.filePath));
         return result.filePath;
       }
     }
