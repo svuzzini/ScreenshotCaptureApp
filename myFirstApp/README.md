@@ -1,5 +1,4 @@
 # Pixelsnap
-
 A cross-platform screenshot application built with Electron and React. Capture, edit, and export screenshots with annotation tools, stylish backgrounds, and one-click sharing.
 
 ## Features
